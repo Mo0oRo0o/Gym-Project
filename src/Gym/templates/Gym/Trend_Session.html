@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Members Data</title>
+</head>
+<body>
+    
+    {% for Session in Sessions %}
+
+    <p> {{Session.title}} - {{Session.base_price}} - {{Session.start_date}} - {{Session.trainer}} -
+        {% for member in Session.members.all %}
+        {{member}}
+        {% endfor %}
+    </p>
+
+    {% endfor %}
+    
+</body>
+</html>
