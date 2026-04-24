@@ -12,9 +12,9 @@ from django.db.models import Count
 
 class MainModel(models.Model) : # abstract model => database level مش ال python level وظيفته كلها ان باقي الموديلز تورث منه وبينشا بس علي
     
-    created_at = models.DateField(auto_now_add= True) # for creation date
+    created_at = models.DateTimeField(auto_now_add= True) # for creation date
 
-    updated_at =  models.DateField(auto_now= True) # for last modify date
+    updated_at =  models.DateTimeField(auto_now= True) # for last modify date
 
     class Meta :
 
@@ -128,12 +128,21 @@ class Equipment(MainModel) :
         
         return self.name
     
+class damaged_EquipmentManager(models.Manager) : # link => https://docs.djangoproject.com/en/6.0/topics/db/managers/
+
+    def get_queryset(self):
+
+        return super().get_queryset().filter(is_damaged = True)
+
 class damaged_Equipment(Equipment) :
+
+    objects = damaged_EquipmentManager()
 
     class Meta :
 
         proxy = True
 
         verbose_name_plural = "Damaged Equipments"
+
 
 
